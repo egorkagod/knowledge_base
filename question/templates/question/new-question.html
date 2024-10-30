@@ -1,0 +1,20 @@
+{% extends 'question/base.html' %}
+
+{% block main %}
+	<h2 class="h2 mb-4">New Question</h2>
+    <form class="d-flex flex-column gap-4">
+        <div>
+          <label for="titleInput" class="form-label">Title</label>
+          <input type="text" class="form-control" id="titleInput">
+        </div>
+        <div>
+          <label for="textInput" class="form-label">Text</label>
+          <textarea type="text" class="form-control" id="textInput"></textarea>
+        </div>
+        <div>
+          <label for="tagsInput" class="form-label">Tags</label>
+          <input type="text" class="form-control" id="tagsInput">
+        </div>
+        <button type="submit" class="btn btn-success small">Ask</button>
+    </form>
+{% endblock %}

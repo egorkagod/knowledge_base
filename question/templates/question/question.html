@@ -1,0 +1,52 @@
+{% extends 'question/base.html' %}
+
+{% block main %}
+<div class="d-flex p-2">
+    <div class="col-2">
+        <img src="" alt="Avatar">
+    </div>
+    <div>
+        <h5>{{ question.title }}</h5>
+        <p>
+            {{ question.content }}
+        </p>
+        <section class="d-flex gap-3">
+            <div class="d-flex gap-1">
+                <h6>Tags:</h6>
+                <div class="d-flex gap-1">
+                    {% for tag in question.tags %}
+                        <a href="{% url 'question:tag' tag=tag %}" class="a">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<hr class="my-0">
+
+<section>
+    <div class="d-flex p-2 border border-black">
+        <div class="col-2">
+            <img src="" alt="Avatar">
+        </div>
+        <div>
+            <p>
+                Simple answer
+            </p>
+            <label>
+                <input type="checkbox" id="isCorrect">
+                Correct
+            </label>
+        </div>
+    </div>
+</section>
+<hr class="my-0">
+
+<section>
+    <form class="d-flex flex-column gap-3">
+        <textarea class="form-control" placeholder="Enter your answer here" style="height: 100px;"></textarea>
+        <button class="btn btn-outline-success" type="submit" style="width: 80px;">Answer</button>
+    </form>
+</section>
+
+{% endblock %}

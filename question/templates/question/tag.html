@@ -1,0 +1,29 @@
+{% extends 'question/base.html' %}
+
+{% block title %}
+	{{ tag }}
+{% endblock %}
+
+{% block main %}
+	<h2 class="h2">Tag: {{ tag }}</h2>
+    {% for question in questions %}
+        {% include 'question/includes/question-preview.html' with question=question %}
+    {% endfor %}    
+    <nav aria-label="Page navigation example" class="mt-3">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% for page_id in pages %}
+                <li class="page-item"><a class="page-link" href="{% url 'question:main_with_page' page_id=page_id %}">{{ page_id }}</a></li>
+            {% endfor %}
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
