@@ -1,40 +1,31 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from .models import Question
 
-questions = {
-        1: {
-            'id': 1,
-            'title': 'How to create your own proxy server',
-            'content': "The Iron Curtain is not on fire...",
-            'tags': ['server', 'proxy'],
-        },
-        2: {
-            'id': 2,
-            'title': "Mom took the lan cable, what should I do",
-            'content': "Guys, I recently wrote a post about database caricature, but I couldn't post it because...",
-            'tags': ['server'],
-        }
-}
-for i in range(20):
-    questions[3+i] = {
-        'id': 3 + i,
-        'title': 'A simple title',
-        'content': "A simple description",
-        'tags': [],
-    }
+
+def paginate(objects_list, page_id=1, per_page=10):
+    paginator = Paginator(objects_list, per_page, allow_empty_first_page=True)
+    page = paginator.get_page(page_id)
+    return page
 
 def main(request, page_id=1):
-    paginator = Paginator(list(questions.values()), 5)
-    if page_id > paginator.num_pages: page_id = 1
-    page = paginator.get_page(page_id)
-    return render(request, 'question/main.html', context={'questions': page.object_list, 'pages': range(1, paginator.num_pages+1)})
+    new_questions = Question.objects.new()
+    page = paginate(new_questions, page_id, per_page=5)
+    return render(request, 'question/main.html', context={'questions': page.object_list})
+
+def hot(request, page_id=1):
+    hot_questions = Question.objects.hot()
+    page = paginate(hot_questions, page_id, per_page=5)
+    return render(request, 'question/main.html', context={'questions': page.object_list})
 
 def ask(request):
     return render(request, 'question/new-question.html')
 
 def question(request, id):
-    return render(request, 'question/question.html', context={'question': questions[id]})
+    q = Question.objects.get(pk=id)
+    return render(request, 'question/question.html', context={'question': q})
 
 def tag(request, tag):
-    data = [question for question in questions.values() if tag in question['tags']]
-    return render(request, 'question/tag.html', context={'questions': data, 'tag': tag})
+    questions = Question.objects.tag(tag)
+    return render(request, 'question/tag.html', context={'questions': questions, 'tag': tag})
+

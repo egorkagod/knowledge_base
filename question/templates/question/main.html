@@ -1,8 +1,10 @@
 {% extends 'question/base.html' %}
 
 {% block main %}
-    <h2 class="h2 d-inline">New Questions</h2>
-    <a class="a">Hot questions</a>
+    <div class="d-flex gap-5 text-align-center">
+        <h2 class="h2 d-inline">New Questions</h2>
+        <h2><a href="{% url 'question:hot' %}">Hot questions</a></h2>
+    </div>
     {% for question in questions %}
 	    {% include 'question/includes/question-preview.html' with question=question %}
     {% endfor %}    

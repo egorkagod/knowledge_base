@@ -14,7 +14,7 @@
             <div class="d-flex gap-1">
                 <h6>Tags:</h6>
                 <div class="d-flex gap-1">
-                    {% for tag in question.tags %}
+                    {% for tag in question.tags.all %}
                         <a href="{% url 'question:tag' tag=tag %}" class="a">{{ tag }}</a>
                     {% endfor %}
                 </div>

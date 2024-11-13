@@ -5,6 +5,7 @@ app_name = 'question'
 
 urlpatterns = [
     path('', views.main, name='main'),
+    path('hot/', views.hot, name='hot'),
     path('<int:page_id>/', views.main, name='main_with_page'),
     path('ask/', views.ask, name='ask'),
     path('question/<int:id>/', views.question, name='is'),

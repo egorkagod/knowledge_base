@@ -7,13 +7,13 @@
     </div>
     <div>
         <h5><a class="a" href="{% url 'question:is' id=question.id %}">{{ question.title }}</a></h5>
-        <p>{{ question.content|truncatewords:10 }}</p>
+        <p>{{ question.body|truncatewords:10 }}</p>
         <section class="d-flex gap-3">
             <a class="a">answer (3)</a>
             <div class="d-flex gap-1">
                 <h6>Tags:</h6>
                 <div class="d-flex gap-1">
-                    {% for tag in question.tags %}
+                    {% for tag in question.tags.all %}
                         <a href="{% url 'question:tag' tag=tag %}" class="a">{{ tag }}</a>
                     {% endfor %}
                 </div>
